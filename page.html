@@ -1,0 +1,66 @@
+<head>
+    
+    
+    <body>
+      
+      
+      
+      
+       <div>
+            <h1>SE1111</h1>
+      
+             <textarea name="paragraph_text" cols="50" rows="13"></textarea>
+             
+          </div>
+                <button onClick = "addComment()" id = "saveComment1">Send</button>
+             <ul id= "class1list">
+                
+             </ul>
+             
+             
+        
+        
+          
+      
+      
+      
+      
+      
+        <div>
+        
+        <h1>SE2222</h1>
+        
+        <textarea name="paragraph_text" cols="50" rows="13" ></textarea>
+        
+        </div>
+        
+        <button>Send</button>
+        
+        <ul id="class2list">
+            
+        </ul>
+           
+       
+    </body>     
+    <script type="text/javascript" src="">
+        
+        function addComment(){
+            fetch('/comments', {
+            method: 'post',
+            body: JSON.stringify({name: document.getElementById()})
+                
+                
+                
+            
+            })
+            
+            
+        }
+        
+        
+        
+        
+        
+    </script>
+    
+</head>
