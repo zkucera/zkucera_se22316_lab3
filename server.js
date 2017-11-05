@@ -13,10 +13,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;        // set our port
+var port = 8081;        // set our port
 var mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/users_test', {useMongoClient: true})
+mongoose.connect('mongodb://localhost:27017/comments')
 var Comment     = require('./app/models/comment');
 // ROUTES FOR OUR API
 // =============================================================================
@@ -34,18 +34,20 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+app.use('/', express.static('static'));
+
 // more routes for our API will happen here
 router.route('/comments1')
 
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
+      
+      console.log(req.body);
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
         var yyyy = today.getFullYear();
-        var hour = today.getHours();
-        var mins = today.getMinutes();
-        var sec = today.getSeconds();
+       
 
         
         today = mm + '/' + dd + '/' + yyyy;
@@ -53,12 +55,14 @@ router.route('/comments1')
         var comment = new Comment();      // create a new instance of the Bear model
         comment.text = req.body.text;  // set the bears name (comes from the request)
         comment.coursecode = "SE1111";
-        comment.timestamp = today.toString();
+        comment.timestamp = Date.now();
+        
         // save the bear and check for errors
         comment.save(function(err) {
             if (err)
                 res.send(err);
 
+            
             res.json({ message: 'Comment created!' });
         });
 

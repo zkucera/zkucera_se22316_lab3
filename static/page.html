@@ -1,0 +1,87 @@
+<head>
+    
+    
+    <body>
+      
+      
+      
+      
+       <div>
+            <h1>SE1111</h1>
+      
+             <textarea name="paragraph_text" id = "text1" cols="50" rows="13"></textarea>
+             
+          </div>
+                <button id = "saveComment1" onclick = "addComment()">Send</button>
+             <ul id= "class1list">
+                <li>hi</li>
+             </ul>
+             
+             
+        
+        
+          
+      
+      
+      
+      
+      
+        <div>
+        
+        <h1>SE2222</h1>
+        
+        <textarea name="paragraph_text" id = "text2"  cols="50" rows="13" ></textarea>
+        
+        </div>
+        
+        <button>Send</button>
+        
+        <ul id="class2list">
+            
+        </ul>
+           
+       
+    </body>     
+    <script>
+        
+        function addComment(){
+          // alert('hi');
+           
+           fetch('http://lab3-zkucera.c9users.io:8081/api/comments1', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({text: document.getElementById('text1').value})
+        
+            })
+            loadcomment();
+        }
+        
+        function loadcomment(){
+    const ul = document.getElementById('class1list');
+      const url = 'http://lab3-zkucera.c9users.io:8081/api/comments1';
+
+     // removeChild(ul); // remove list elements if there are any
+
+      fetch(url)
+      .then((resp) => resp.json())
+      .then(function(data) {
+        console.log(data);
+        return data.map(function(comment) {
+          let li = createNode('li');
+       
+          li.innerHTML = comment.text;
+          
+          append(ul, li);
+        })
+      })
+      .catch(function(error) {
+        console.log(JSON.stringify(error));
+      });
+        }
+        
+        
+        
+        
+    </script>
+    
+</head>
