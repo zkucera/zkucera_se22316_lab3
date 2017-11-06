@@ -13,8 +13,8 @@
              
           </div>
                 <button id = "saveComment1" onclick = "addComment()">Send</button>
-             <ul id= "class1list">
-                <li>hi</li>
+             <ul id= "class">
+                <li></li>
              </ul>
              
              
@@ -53,11 +53,11 @@
             body: JSON.stringify({text: document.getElementById('text1').value})
         
             })
-            loadcomment();
+            getComment();
         }
         
-        function loadcomment(){
-    const ul = document.getElementById('class1list');
+       function getComment(){
+      const ul = document.getElementById("class2list");
       const url = 'http://lab3-zkucera.c9users.io:8081/api/comments1';
 
      // removeChild(ul); // remove list elements if there are any
@@ -67,17 +67,19 @@
       .then(function(data) {
         console.log(data);
         return data.map(function(comment) {
-          let li = createNode('li');
-       
-          li.innerHTML = comment.text;
-          
+          let li = createNode('li'),
+            span = createNode('span');
+            if(msg.course=="SE1111"){
+          span.innerHTML = comment.value;
+          span.setAttribute("title", `ID: ${bear._id}`)
+          append(li, span);
           append(ul, li);
-        })
+        }})
       })
       .catch(function(error) {
         console.log(JSON.stringify(error));
       });
-        }
+    }
         
         
         
