@@ -34,7 +34,7 @@
         
         </div>
         
-        <button>Send</button>
+        <button id = "saveComment2" onclick="addComment2()">Send</button>
         
         <ul id="class2list">
             
@@ -57,7 +57,8 @@
         }
         
        function getComment(){
-      const ul = document.getElementById("class2list");
+      const ul = document.getElementById("class");
+      const ul2 = document.getElementById("class2list");
       const url = 'http://lab3-zkucera.c9users.io:8081/api/comments1';
 
      // removeChild(ul); // remove list elements if there are any
@@ -67,19 +68,31 @@
       .then(function(data) {
         console.log(data);
         return data.map(function(comment) {
-          let li = createNode('li'),
-            span = createNode('span');
-            if(msg.course=="SE1111"){
-          span.innerHTML = comment.value;
-          span.setAttribute("title", `ID: ${bear._id}`)
-          append(li, span);
-          append(ul, li);
-        }})
+            var li = document.createElement('li');
+            var span = document.createElement('span');
+            console.log(comment.coursecode);
+            if(comment.coursecode== "SE1111"){
+              span.innerHTML = comment.text;
+              span.setAttribute('title', 'ID: ${bear._id}')
+              li.appendChild(span);
+              ul.appendChild(li);
+        }
+            
+            if(comment.coursecode == "SE2222"){
+              span.innerHTML = comment.text;
+              span.setAttribute('title', 'ID: ${bear._id}')
+              li.appendChild(span);
+              ul2.appendChild(li);
+        }
+            
+        })
       })
       .catch(function(error) {
         console.log(JSON.stringify(error));
       });
     }
+     
+      
         
         
         
